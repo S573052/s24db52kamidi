@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1= title
+  //- p Grid Rows: #{query.rows}
+  //- p Grid Columns: #{query.cols}
+  - let rows = Number(query.rows)
+  - let cols = Number(query.cols)
+  p Rows: #{query.rows}, Cols: #{query.cols}
+  if (!Number.isInteger(rows) || !Number.isInteger(cols))
+    p Both rows and cols must be integers.
+  else if (rows < 3 || rows > 13)
+    p Rows must be in the range of 3 to 13.
+  else if (cols < 3 || cols > 13)
+    p Cols must be in the range of 3 to 13.
+  else
+    table#outer
+      - for(let i=0; i<rows; i++)
+        tr#middle
+          - for(let j=0; j<cols; j++)
+            td= Math.min(i, j) + 1
+

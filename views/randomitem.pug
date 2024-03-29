@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  - let image_names = ['alone_1.jpg', 'kill.jpg', '1984.jpg', 'alchemist.jpg', 'always and foreverv.jpg']
+  - for(let i=0; i<3; i++)
+    - let random=Math.floor(Math.random()*5)
+    img(src=`/images/${image_names[random]}` alt=`${random}` height="300px" width="300px")
+

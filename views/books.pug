@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1= title
+  - let results = []
+  - results.push({book_title:"Alone", book_author:"Megan E. Freeman", book_rating: 4.6})
+  - results.push({book_title:"To Kill a Mockingbird", book_author:"Harper Lee", book_rating:4.5})
+  - results.push({book_title:"1984", book_author:"George Orwell", book_rating: 4.7})
+  - results.push({book_title:"The Alchemist", book_author:"Paulo Coelho", book_rating: 4.6})
+  - results.push({book_title:"Always and Forever", book_author:"Soraya Lane", book_rating: 4.0})
+
+  .container-fluid
+    .row
+      each item, index in results
+        .col-sm-2
+          div(onclick=`buy(${index})`)
+            p Book: #{item.book_title}
+            p Author: #{item.book_author}
+            p Rating: #{item.book_rating}
+
+  script.
+    function buy(index) {
+      alert("You purchased item " + index);
+    }
+
+
