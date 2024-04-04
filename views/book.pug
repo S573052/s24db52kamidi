@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+  - let items = results
+
+  .container-fluid
+    .row
+      each item, index in items
+        .col-sm-2
+          div(onclick=`buy(${index})`)
+            p Book: #{item.book_title}
+            p Author: #{item.book_author}
+            p Rating: #{item.book_rating}
+
+  script.
+    function buy(index) {
+      alert("You purchased item " + index);
+    }
+
+

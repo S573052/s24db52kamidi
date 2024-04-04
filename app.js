@@ -16,7 +16,7 @@ console.log("Connection to DB succeeded")});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const booksRouter = require('./routes/books');
+const booksRouter = require('./routes/book');
 const gridRouter = require('./routes/grid');
 const randomitemRouter = require('./routes/pick');
 var bookRouter = require("./models/book");
@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/books', booksRouter);
+app.use('/book', booksRouter);
 app.use('/grid', gridRouter);
 app.use('/randomitem', randomitemRouter);
 app.use('/book', bookRouter);
