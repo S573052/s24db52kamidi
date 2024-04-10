@@ -69,9 +69,22 @@ exports.book_create_post = async function(req, res) {
     
     
 // Handle book delete from on DELETE.
-exports.book_delete = function(req, res) {
-res.send('NOT IMPLEMENTED: book delete DELETE ' + req.params.id);
-};
+//exports.book_delete = function(req, res) {
+//res.send('NOT IMPLEMENTED: book delete DELETE ' + req.params.id);
+//};
+exports.book_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await book.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+   };
+   
+   
 // Handle book update form on PUT.
 // exports.book_update_put = function(req, res) {
 // res.send('NOT IMPLEMENTED: book update PUT' + req.params.id);
@@ -96,3 +109,16 @@ res.send(`{"error": ${err}: Update for id ${req.params.id}
 failed`);
 }
 };
+
+exports.book_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await book.findById( req.query.id)
+    res.render('bookdetail', 
+   { title: 'Book Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
