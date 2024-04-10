@@ -1,6 +1,8 @@
+extends layout
+
 block content
   h1= title
-  - if toShow
+  if toShow
     - let bookid = toShow._id
     - let book_title = toShow.book_title
     - let book_author = toShow.book_author
@@ -18,5 +20,5 @@ block content
       div.row
         div(class='bookAttr mr-3') Book Rating is:
         div #{book_rating}
-  - else
+  else
     p No book details available.
