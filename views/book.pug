@@ -3,19 +3,17 @@ extends layout
 block content
   h1= title
   - let items = results
-
-  .container-fluid
-    .row
-      each item, index in items
-        .col-sm-2
+  div(class="container-fluid")
+    div(class="row m-1")
+      each item in items
+        - let destination = `book/update/?id=${item._id}`
+        div(class="row-sm-2 m-1")
           div(onclick=`buy(${index})`)
             p Book: #{item.book_title}
             p Author: #{item.book_author}
             p Rating: #{item.book_rating}
-
+          button.btn(class="btn-success ml-1", onclick=`dispatch('${destination}')`) Update
   script.
-    function buy(index) {
-      alert("You purchased item " + index);
+    function dispatch(path){
+      window.location.href=path
     }
-
-
