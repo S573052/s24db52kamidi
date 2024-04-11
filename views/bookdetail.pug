@@ -2,7 +2,9 @@ extends layout
 
 block content
   h1= title
-  if toShow
+  if (toShow == null)
+    h2 No instance to detail
+  else if (toShow)
     - let bookid = toShow._id
     - let book_title = toShow.book_title
     - let book_author = toShow.book_author

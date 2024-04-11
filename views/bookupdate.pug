@@ -2,40 +2,43 @@ extends layout
 
 block content
   h1= title
-  - let bookid = toShow._id
-  - let book_title = toShow.book_title
-  - let book_author = toShow.book_author
-  - let book_rating = toShow.book_rating
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let bookid = toShow._id
+    - let book_title = toShow.book_title
+    - let book_author = toShow.book_author
+    - let book_rating = toShow.book_rating
 
-  div.row(class='mb-2')
-    div.mr-1 ID is
-      div #{bookid}
-    - let actionid = "/resource/books/" + bookid
-    form(id='bookForm', action= actionid, method="PUT")
-      div.form-group
-        label.bookAttr(for='book_title') book title
-        input#book_title(type='text', name='book_title', value= book_title )
-      div.form-group
-        label.bookAttr(for='book_author') book author
-        input#book_author(type='text', name='book_author', value= book_author )
-      div.form-group
-        label.bookAttr(for='book_rating') book rating
-        input#book_rating(type='number', name='book_rating', value= book_rating )
-      input(type="submit")
-    script.
-      document.forms['bookForm'].addEventListener('submit', (event) => {
-        event.preventDefault();
-        // TODO do something here to show user that form is being submitted
-        fetch(event.target.action, {
-          method: 'PUT',
-          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
-        }).then((resp) => {
-          return resp.json(); // or resp.text() or whatever the server sends
-        }).then((body) => {
-          alert("Update succeeded")
-          // TODO handle body
-        }).catch((error) => {
-          // TODO handle error
-          alert("Update failed " + error )
+    div.row(class='mb-2')
+      div.mr-1 ID is
+        div #{bookid}
+      - let actionid = "/resource/books/" + bookid
+      form(id='bookForm', action= actionid, method="PUT")
+        div.form-group
+          label.bookAttr(for='book_title') book title
+          input#book_title(type='text', name='book_title', value= book_title )
+        div.form-group
+          label.bookAttr(for='book_author') book author
+          input#book_author(type='text', name='book_author', value= book_author )
+        div.form-group
+          label.bookAttr(for='book_rating') book rating
+          input#book_rating(type='number', name='book_rating', value= book_rating )
+        input(type="submit")
+      script.
+        document.forms['bookForm'].addEventListener('submit', (event) => {
+          event.preventDefault();
+          // Prevent form submission to allow Ajax update
+          fetch(event.target.action, {
+            method: 'PUT',
+            body: new URLSearchParams(new FormData(event.target)) // Serialize form data
+          }).then((resp) => {
+            return resp.json(); // Parse response as JSON
+          }).then((body) => {
+            alert("Update succeeded"); // Display success message
+            // TODO: Handle response body if needed
+          }).catch((error) => {
+            alert("Update failed: " + error); // Display error message
+            // TODO: Handle error if needed
+          });
         });
-      });
