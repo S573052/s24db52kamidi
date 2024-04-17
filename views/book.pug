@@ -2,17 +2,26 @@ extends layout
 
 block content
   h1= title
+  a.btn.btn-primary.mb-3(href="/book/create") Create New Book
   - let items = results
   div(class="container-fluid")
     div(class="row m-1")
       each item in items
         - let destination = `book/update/?id=${item._id}`
+        - let detail = `book/detail/?id=${item._id}`
+        - let deleteLink = `book/delete/?id=${item._id}`
         div(class="row-sm-2 m-1")
           div(onclick=`buy(${index})`)
             p Book: #{item.book_title}
             p Author: #{item.book_author}
             p Rating: #{item.book_rating}
           button.btn(class="btn-success ml-1", onclick=`dispatch('${destination}')`) Update
+          br
+          br
+          button.btn(class="btn-success ml-1", onclick=`dispatch('${detail}')`) detail
+          br
+          br
+          button.btn(class="btn-success ml-1", onclick=`dispatch('${deleteLink}')`) delete
   script.
     function dispatch(path){
       window.location.href=path
