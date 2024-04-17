@@ -14,9 +14,9 @@ var router = express.Router();
 router.get('/', book_controlers.book_view_all_Page );
 
 router.get('/detail', book_controlers.book_view_one_Page);
-router.get('/create', book_controlers.book_create_Page);
+router.get('/create',secured, book_controlers.book_create_Page);
 router.get('/update',secured, book_controlers.book_update_Page);
-router.get('/delete', book_controlers.book_delete_Page);
+router.get('/delete',secured, book_controlers.book_delete_Page);
 
 module.exports = router;
 
